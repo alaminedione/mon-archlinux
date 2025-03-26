@@ -1,0 +1,112 @@
+
+* {
+    background-color: #fbf1c7;
+    background-color-light: #f2e5bc;
+    border-color: #d5c4a1;
+    selected-color: #d5c4a1;
+    blue: #83a598;
+    foreground-color: #3c3836;
+    foreground-color2: #d75f5f;
+    grey: #928374;
+
+    width: 600px;
+    font: "JetBrainsMono Nerd Font 11.3";
+}
+
+element-text, element-icon, mode-switcher {
+    background-color: inherit;
+    color: inherit;
+}
+
+window {
+    height: 360px;
+    border: 3px;
+    border-color: #d5c4a1;
+    background-color: #fbf1c7;
+}
+
+mainbox {
+    background-color: #fbf1c7;
+}
+
+inputbar {
+    children: [prompt, entry];
+    background-color: #fbf1c7;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+prompt {
+    background-color: #83a598;
+    padding: 6px;
+    color: #fbf1c7;
+    border-radius: 3px;
+    margin: 20px 0px 0px 20px;
+}
+
+textbox-prompt-colon {
+    expand: false;
+    str: ":";
+}
+
+entry {
+    padding: 6px;
+    margin: 20px 0px 0px 10px;
+    color: #3c3836;
+    background-color: #fbf1c7;
+}
+
+listview {
+    border: 0px 0px 0px;
+    padding: 6px 0px 0px;
+    margin: 10px 0px 0px 20px;
+    columns: 2;
+    lines: 5;
+    background-color: #fbf1c7;
+}
+
+element {
+    padding: 5px;
+    background-color: #fbf1c7;
+    color: #3c3836;
+}
+
+element-icon {
+    size: 25px;
+}
+
+element selected {
+    background-color: #d5c4a1;
+    color: #d75f5f;
+}
+
+mode-switcher {
+    spacing: 0;
+}
+
+button {
+    padding: 10px;
+    background-color: #f2e5bc;
+    color: #928374;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+}
+
+button selected {
+    background-color: #fbf1c7;
+    color: #83a598;
+}
+
+message {
+    background-color: #f2e5bc;
+    margin: 2px;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+textbox {
+    padding: 6px;
+    margin: 20px 0px 0px 20px;
+    color: #83a598;
+    background-color: #f2e5bc;
+}

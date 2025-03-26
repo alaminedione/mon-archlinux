@@ -1,0 +1,155 @@
+#! /bin/sh
+
+bspc config border_width 2
+bspc config window_gap 7
+bspc config split_ratio 0.52
+bspc config borderless_monocle true
+bspc config single_monocle false
+bspc config paddingless_monocle true
+bspc config gapless_monocle true
+bspc config focus_follows_pointer true
+bspc config presel_feedback true
+
+## Run java applications without issues
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# color
+#bspc config focused_border_color "$BSPWM_FBC"
+#bspc config normal_border_color "$BSPWM_NBC"
+#bspc config active_border_color "$BSPWM_ABC"
+#bspc config presel_feedback_color "$BSPWM_PFC"
+
+## Manage all the unmanaged windows remaining from a previous session.
+bspc wm --adopt-orphans
+
+## Window rules ----------------------------------------------#
+
+## remove all rules first
+bspc rule -r *:*
+
+## 1 > terminal (always open terminal on workspace-1)
+bspc rule -a Alacritty desktop='^1' follow=on focus=on
+bspc rule -a kitty desktop='^1' follow=on focus=on
+
+bspc rule -a Brave desktop='^2' follow=on focus=on
+bspc rule -a 'zen-browser' desktop='^2' follow=on focus=on
+
+bspc rule -a Thunar desktop='^3' follow=on focus=on
+
+bspc rule -a Geany desktop='^4' follow=on focus=on
+bspc rule -a Codeium desktop='^4' follow=on focus=on
+bspc rule -a Zed desktop='^4' follow=on focus=on
+
+bspc rule -a Evince desktop='^5' follow=on focus=on
+bspc rule -a Atril desktop='^5' follow=on focus=on
+
+bspc rule -a TelegramDesktop desktop='^6' follow=on focus=on
+bspc rule -a obsidian desktop='^6' follow=on focus=on
+
+bspc rule -a clapper desktop='^7' follow=on focus=on
+bspc rule -a vlc desktop='^7' follow=on focus=on
+
+bspc rule -a 'VirtualBox Manager' desktop='^8' follow=on focus=on
+bspc rule -a gparted desktop='^8' follow=on focus=on
+
+bspc rule -a xfec4-power-manager-settings desktop='^8' follow=on focus=on state=floating
+
+bspc rule -a viewnior desktop='^8' follow=on focus=on state=floating
+bspc rule -a feh desktop='^8' follow=on focus=on state=floating
+
+
+bspc rule -a iwgtk state=floating focus=on
+
+#bspc rule -a Conky state=floating manage=off
+#bspc rule -a stalonetray state=floating manage=off
+
+## Autostart -------------------------------------------------#
+
+# Kill if already running
+killall -9 xsettingsd sxhkd dunst ksuperkey xfce4-power-manager bspc picom
+
+sleep 2
+
+sxhkd &
+
+# Enable Super Keys For Menu
+#ksuperkey -e 'Super_L=Alt_L|F1' &
+#ksuperkey -e 'Super_R=Alt_L|F1' &
+
+# Restore wallpaper
+#~/.fehbg &
+
+#set walpapper
+feh --bg-fill ~/.config/bspwm/wallpaper/cat.jpg
+
+# random walpapper
+# feh --bg-fill --recursive --randomize ~/Pictures/wallpaper/*
+
+# Manage Monitors and Workspaces
+##
+## Default Setup (Set 8 workspaces on each monitor)
+default_workspaces() {
+	for monitor in $(xrandr -q | grep -w 'connected' | cut -d' ' -f1); do
+		bspc monitor "$monitor" -d '' '' '' '' '' '' '' ''
+	done
+}
+
+## Two Monitors Setup (Laptop and external monitor, set 4 workspaces on each monitor)
+two_monitors_workspaces() {
+	# change these values according to your system
+	# you can use `xrandr -q` to get the names of monitors
+	INTERNAL_MONITOR="eDP"
+	EXTERNAL_MONITOR="HDMI-A-0"
+	if [[ $(xrandr -q | grep "${EXTERNAL_MONITOR} connected") ]]; then
+		bspc monitor "$EXTERNAL_MONITOR" -d '' '' '' ''
+		bspc monitor "$INTERNAL_MONITOR" -d '' '' '' ''
+		/bspc wm -O "$EXTERNAL_MONITOR" "$INTERNAL_MONITOR"
+	else
+		bspc monitor "$INTERNAL_MONITOR" -d '' '' '' '' '' '' '' ''
+	fi
+}
+
+## Three Monitors Setup (Laptop and two external monitor, 3-2-3 workspaces)
+three_monitors_workspaces() {
+	# again, change these values accordingly
+	MONITOR_1="eDP"
+	MONITOR_2="HDMI-A-0"
+	MONITOR_3="HDMI-A-1"
+	bspc monitor "$MONITOR_1" -d '' ''
+	bspc monitor "$MONITOR_2" -d '' '' ''
+	bspc monitor "$MONITOR_3" -d '' '' ''
+	bspc wm -O "$MONITOR_2" "$MONITOR_1" "$MONITOR_3"
+}
+
+default_workspaces
+#two_monitors_workspaces
+#three_monitors_workspaces
+
+# Fix cursor
+xsetroot -cursor_name left_ptr
+# Manage all the unmanaged windows remaining from a previous session
+bspc wm --adopt-orphans
+
+# Terminate if picom is already running
+#killall -q picom
+
+# Wait until the processes have been shut down
+#while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
+
+# Launch picom
+picom &
+
+#launch dunst
+dunst &
+
+# Lauch xsettingsd daemon
+#xsettingsd &
+
+clipcatd&
+
+xfce4-power-manager &
+
+# Launch gammastep
+gammastep &
+
+setxkbmap -option compose:ralt

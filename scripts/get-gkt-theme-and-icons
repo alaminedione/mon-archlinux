@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Fonction pour cloner et installer un thème
+install_theme() {
+    local repo_url=$1
+    local dir_name=$2
+    local install_command=$3
+
+    git clone "$repo_url" --depth=1
+    if [ -d "$dir_name" ]; then
+        cd "$dir_name" || exit
+        eval "$install_command"
+        cd .. || exit
+        rm -rf "$dir_name"
+    else
+        echo "Erreur : Le répertoire $dir_name n'a pas été trouvé."
+    fi
+}
+
+# Installer le thème GTK WhiteSur
+install_theme "https://github.com/vinceliuice/WhiteSur-gtk-theme.git" "WhiteSur-gtk-theme" "./install.sh -t all"
+
+# Installer le thème d'icônes Colloid
+install_theme "https://github.com/vinceliuice/Colloid-icon-theme.git" "Colloid-icon-theme" "./install.sh"
+
+# Installer le thème d'icônes WhiteSur
+install_theme "https://github.com/vinceliuice/WhiteSur-icon-theme.git" "WhiteSur-icon-theme" "./install.sh -a"
+
+# Installer les fonds d'écran WhiteSur
+install_theme "https://github.com/vinceliuice/WhiteSur-wallpapers.git" "WhiteSur-wallpapers" "./install-wallpapers.sh"
+
+# installer le theme de cruseur Whitesur
+install_theme "https://github.com/vinceliuice/WhiteSur-cursors" "WhiteSur-cursors" "./install.sh"
+
+install_theme "https://github.com/vinceliuice/Vimix-icon-theme" "Vimix-icon-theme" "./install.sh -a -d ~/.icons"
+
+echo "Installation terminée avec succès !"
+

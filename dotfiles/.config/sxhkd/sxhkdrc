@@ -1,0 +1,159 @@
+##---------- Keybindings for bspwm ----------##
+
+# Afficher la date et l'heure sous forme de notification
+super + d
+    notify-send "$(date)" "$(date +%H:%M:%S)"
+
+# Afficher la batterie sous forme de notification
+super + b
+    notify-send "Batterie: $(acpi -b | grep -oP '[0-9]+(?=%)')" 
+
+# Terminal (alacritty / kitty)
+super + k
+    kitty
+super + Return
+    alacritty
+
+# Scratchpad
+super + o
+    tdrop -a -w 72% -h 83% -y 7% -x 15%  --class scratch kitty --class=scratch
+
+##---------- Rofi Launcher & Menus ----------##
+
+# Rofi App Launcher
+alt + F1
+    rofi_launcher
+
+# Rofi Menus/Applets
+super + w 
+    rofi -show window
+
+super + r
+    rofi -show drun
+
+#super + s
+#    rofi -show run
+
+
+super + t
+     ~/.config/rofi/applets/bin/theme.sh
+
+# Super + w : Lance apps.sh
+super + a
+    ~/.config/rofi/applets/bin/apps.sh
+
+super + s
+    ~/.config/rofi/applets/bin/screenshot.sh
+
+#super + b
+#    ~/.config/rofi/applets/bin/battery.sh
+
+super + v
+    clipcat-menu --finder rofi
+
+#super + r
+#    ~/.config/rofi/applets/bin/appasroot.sh
+
+#super + m
+#    ~/.config/rofi/applets/bin/mpd.sh
+
+super + l
+    ~/.config/rofi/applets/bin/quicklinks.sh
+
+super +x
+    ~/.config/rofi/applets/bin/powermenu.sh
+
+##---------- Applications ----------##
+
+# Launch Apps
+super + shift + {f,w,o,t}
+    {thunar,'zen-browser',obsidian,telegram_desktop}
+
+# Terminal Apps
+ctrl + alt + {v,r,h,m}
+    alacritty -e {vim,ranger,htop,bspmusic}
+
+# Lockscreen
+ctrl + alt + l
+    betterlockscreen --lock
+
+##---------- System Keys ----------##
+
+# Take a screenshot
+Print
+    flameshot gui
+
+
+# [Contrôle de la luminosité]
+XF86MonBrightnessUp
+    brightnessctl set +5%; notify-send "luminosite" "`light -G`%"
+XF86MonBrightnessDown
+    brightnessctl set 5%-; notify-send "luminosite" "`light -G`%"
+
+# [Contrôle du volume]
+XF86AudioRaiseVolume
+    pamixer --increase 5; notify-send "Volume" "$(pamixer --get-volume-human)"
+
+XF86AudioLowerVolume
+    pamixer --decrease 5; notify-send "Volume" "$(pamixer --get-volume-human)"
+
+XF86AudioMute
+    pamixer --toggle-mute; notify-send "Volume" "$(pamixer --get-mute)"
+
+##---------- Bspwm ----------##
+
+
+# Close App
+super + c
+    bspc node -{c,k}
+
+# Kill window
+#ctrl + alt + Escape
+#    xkill
+
+# Quit/Restart bspwm
+ctrl + shift + {q,r}
+    bspc {quit,wm -r}
+
+# Switch workspace
+ctrl + alt + {Left,Right}
+    bspc desktop -f {prev.local,next.local}
+
+# Switch workspace or Send focused Node to another workspace
+super + {_,shift + }{1-8}
+    bspc {desktop -f,node -d} '^{1-8}' '--follow'
+
+# Expanding windows
+super + control + {Left,Right,Up,Down}
+    bspc node -z {left -20 0,right 20 0,top 0 -20,bottom 0 20}
+
+# Shrinking windows
+super + alt + {Left,Right,Up,Down}
+    bspc node -z {left 20 0,right -20 0,top 0 20,bottom 0 -20}
+
+# Toggle Layout (Tiled/Monocle)
+#super + l
+#    bspc desktop -l next
+
+# Toggle Fullscreen
+super + f
+    bspc node -t "~"fullscreen
+
+# Toggle between floating & tiled
+super + space
+    bspc node -t "~"{floating,tiled}
+
+# Pseudo Tiled & tiled mode
+super + shift + space
+    bspc node -t "~"{pseudo_tiled,tiled}
+
+# Switch to last opened workspace
+super + {Tab,grave}
+    bspc {node,desktop} -f last
+
+
+
+super + {Up, Down, Left, Right}
+    bspc node -f {north,south,west,east}
+##---------- EOF ----------##
+

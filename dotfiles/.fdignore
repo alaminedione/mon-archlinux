@@ -1,0 +1,80 @@
+
+# Dossiers Git
+.git/
+/
+
+go/
+.local/share/
+.local/state/
+BraveSoftware/
+.yarn/
+.npm/
+venv/
+Servers/
+
+# Dossiers Node.js
+node_modules/
+
+# Dossiers IDEs et éditeurs
+.idea/
+.vscode/
+.netbeans/
+.eclipse/
+
+# Fichiers temporaires et caches
+.cache/
+.local/share/Trash/
+#tmp/
+temp/
+
+# Autres dossiers à ignorer
+#build/
+#dist/
+coverage/
+
+# Répertoires système Linux (à ajuster selon vos besoins)
+var/log/*
+var/tmp/*
+run/user/*
+/tmp/*
+var/cache/*
+var/lib/
+var/www/*
+
+# Icons et autres éléments graphiques non pertinents pour la recherche texte
+.icons/
+icons/
+
+
+# Fichiers spécifiques à Python
+tox/
+.mypy_cache/
+.pyre/
+
+# Fichiers spécifiques à JavaScript/TypeScript
+*.tsbuildinfo
+.nyc_output/
+.next/
+
+# Fichiers spécifiques à Docker
+docker/
+
+# Fichiers spécifiques à LaTeX
+*.aux
+*.log
+*.out
+
+# Fichiers spécifiques à Go
+*.test
+
+# Dossiers temporaires ou de sauvegarde
+*.swp
+
+# Fichiers spécifiques aux environnements OS
+.fseventsd/
+.Spotlight-V100/
+.AppleDouble/
+
+# Fichiers de gestion de dépendances
+vendor/
+

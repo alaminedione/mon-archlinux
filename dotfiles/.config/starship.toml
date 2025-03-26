@@ -1,0 +1,15 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+command_timeout = 10000 # Temps en secondes avant que la commande ne soit interrompue
+
+
+[[battery.display]] # 'bold red' style and discharging_symbol when capacity is between 0% and 10%
+threshold = 20
+style = 'bold red'
+
+[custom.tmux_window]
+command = """ tmux display-message -p "#I/#{session_windows}" """
+symbol = ' ❐ '
+when = "tmux info &>/dev/null"                                    # Vérifie si Tmux est actif
+format = "'[$symbol:($output )]($style)'"

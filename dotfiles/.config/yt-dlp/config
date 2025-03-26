@@ -1,0 +1,67 @@
+# -----------------------------------------------------------
+# Configuration de base
+# -----------------------------------------------------------
+
+# Dossier de sortie par défaut
+#-o ~/Videos/yt-dlp/%(uploader)s/%(title)s.%(ext)s
+
+# Format préféré : meilleure qualité vidéo+audio (<=1080p)
+#-f "bestvideo[height<=1080]+bestaudio/best[height<=1080]"
+
+# Fusionner les formats en MP4 (pour compatibilité)
+#--merge-output-format mp4
+
+# -----------------------------------------------------------
+# Audio
+# -----------------------------------------------------------
+
+# Extraction audio par défaut (décommenter pour activer)
+# --extract-audio
+# --audio-format mp3
+# --audio-quality 0  # meilleure qualité
+
+# -----------------------------------------------------------
+# Sous-titres et métadonnées
+# -----------------------------------------------------------
+#--write-subs
+#--write-auto-subs
+#--sub-langs "fr,en,-live_chat"  # français prioritaire
+#--convert-subs srt
+#--embed-subs
+--embed-thumbnail
+#--embed-metadata
+#--write-info-json
+#--write-description
+
+# -----------------------------------------------------------
+# Performances et réseau
+# -----------------------------------------------------------
+#--retries 10
+#--fragment-retries 10
+#--buffer-size 16K
+#--concurrent-fragments 5
+#--throttled-rate 100K
+#--downloader aria2c  # nécessite aria2 installé
+#--downloader-args aria2c:"-x 3 -s 3 -k 1M"
+
+# -----------------------------------------------------------
+# Playlists et collections
+# -----------------------------------------------------------
+--playlist-start 1
+--download-archive ~/.config/yt-dlp/archive.txt
+#--break-on-existing
+--write-playlist-metafiles
+
+# -----------------------------------------------------------
+# Post-traitement
+# -----------------------------------------------------------
+#--exec "echo 'Téléchargement terminé : {}'"
+# --sponsorblock-remove all  # nécessite sponsorblock
+#--convert-thumbnails jpg
+
+# -----------------------------------------------------------
+# Sécurité et compatibilité
+# -----------------------------------------------------------
+#--restrict-filenames
+#--no-overwrites
+#--windows-filenames  # pour Windows uniquement

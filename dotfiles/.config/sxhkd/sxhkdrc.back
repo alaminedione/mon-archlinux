@@ -1,0 +1,139 @@
+##---------- Keybindings for bspwm ----------##
+
+# afficher la date et l'heure sous forme de notification
+super + d
+    notify-send "$(date)" "$(date +%H:%M:%S)"
+# afficher la batterie sous forme de notification
+super + b
+    notify-send "$(acpi)" 
+
+# Terminal (alacritty)
+super + k
+	kitty
+super + a
+    alacritty
+
+
+#scratchpad
+super + o
+    tdrop -a -w 72% -h 83% -y 7% -x 15%  --class scratch kitty --class=scratch
+    #tdrop -a -w 70% -h 35% -y 15% -x 15%  --class scratch alacritty --class=scratch
+##---------- Rofi Launcher & Menus ----------##
+
+# Rofi App Launcher
+alt + F1
+	rofi_launcher
+
+# Rofi Menus/Applets
+
+super + w 
+	rofi -show window
+
+super  + r
+	rofi -show drun
+
+super + s
+	rof -show run
+##---------- Applications ----------##
+
+# Launch Apps
+super + shift + {f,w,e,o,t}
+	{thunar,chromium,zed,obsidian,telegram_desktop}
+
+# Terminal Apps
+ctrl + alt + {v,r,h,m}
+	alacritty -e {vim,ranger,htop,bspmusic}
+
+
+# Lockscreen
+#ctrl + alt + l
+#    betterlockscreen --lock
+
+##---------- System Keys ----------##
+
+# Take a screenshot
+Print
+	flameshot gui
+
+# [ Brighness control]
+# Augmenter la luminosité
+XF86MonBrightnessUp
+    brightnessctl set +5%; notify-send "Luminosité: $brightness%" 
+# Diminuer la luminosité
+XF86MonBrightnessDown
+    brightnessctl set 5%-; notify-send "Luminosité: $brightness%" 	
+# Augmenter le volume
+XF86AudioRaiseVolume
+    pamixer --increase 5; notify-send "Volume: $volume%"
+
+
+# Diminuer le volume
+XF86AudioLowerVolume
+    pamixer --decrease 5; notify-send "Volume: $volume%"
+
+# Couper/Restaurer le volume
+XF86AudioMute
+    pamixer --toggle-mute 
+	
+# Music control
+#	mpc {next,prev,toggle,stop}
+
+##---------- Bspwm ----------##
+
+# Hide/Unhide Window
+
+# Close App
+super + c
+	bspc node -{c,k}
+
+# kill window
+#ctrl + alt + Escape
+#   xkill
+
+# Quit/Restart bspwm
+ctrl + shift + {q,r}
+	bspc {quit,wm -r}
+	
+
+# Switch workspace
+ctrl + alt + {Left,Right}
+	bspc desktop -f {prev.local,next.local}
+
+# Switch workspace or Send focused Node to another workspace
+super + {_,shift + }{1-8}
+	bspc {desktop -f,node -d} '^{1-8}' '--follow'
+
+
+# Expanding windows
+super + control + {Left,Right,Up,Down}
+	bspc node -z {left -20 0,right 20 0,top 0 -20,bottom 0 20}
+	
+# Shrinking windows
+super + alt + {Left,Right,Up,Down}
+	bspc node -z {left 20 0,right -20 0,top 0 20,bottom 0 -20}
+
+
+# Toggle Layout (Tiled/Monocle)
+super + l
+	bspc desktop -l next
+
+# Toggle Fullscreen
+super + f
+    bspc node -t "~"fullscreen
+
+# Toggle beetwen floating & tiled
+super + space
+    bspc node -t "~"{floating,tiled}
+
+# Pseudo Tiled & tiled mode
+super + shift + space
+    bspc node -t "~"{pseudo_tiled,tiled}
+
+
+
+# Switch to last opened workspace
+super + {Tab,grave}
+	bspc {node,desktop} -f last
+	
+##---------- EOF ----------##
+
