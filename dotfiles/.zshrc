@@ -105,6 +105,9 @@ fi
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
+source ~/.profile.d/env.aider.sh
+source ~/.profile.d/run.sh
+source ~/.profile.d/api.sh
 
 source ~/.aliases.sh
 source ~/.fzf/shell/key-bindings.zsh
