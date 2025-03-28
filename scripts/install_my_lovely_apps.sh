@@ -20,6 +20,7 @@ sudo pacman -R vim sxhkd bspwm --noconfirm
 
 # Liste complète des paquets
 OFFICIAL_PACKAGES=(
+    node-ts
     sway swaylock swayidle swaybg   wl-clipboard
     hyperfine
     noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
